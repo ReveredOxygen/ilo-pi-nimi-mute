@@ -79,8 +79,11 @@ function placeHtml(entries, results, query) {
 
 function generateHtml(entry, match) {
     let div = document.createElement('div')
+    div.className = 'entry'
 
-    let wordHtml = document.createTextNode(entry.word)
+    let wordHtml = document.createElement('h1')
+    wordHtml.textContent = entry.word
+    wordHtml.className = 'tp-word'
     div.appendChild(wordHtml)
 
     let tagsStr = '('
@@ -92,7 +95,9 @@ function generateHtml(entry, match) {
     }
     tagsStr += ')'
 
-    let tagsHtml = document.createTextNode(tagsStr)
+    let tagsHtml = document.createElement('div')
+    tagsHtml.textContent = tagsStr
+    tagsHtml.className = 'tags'
     div.appendChild(tagsHtml)
 
     div.appendChild(genDefinitionTable(entry, match))
@@ -134,15 +139,19 @@ function pushDefinition(table, definition) {
     table.appendChild(row)
 
     let wordCell = document.createElement('td')
+    wordCell.className = 'definition-cell'
     row.appendChild(wordCell)
 
     wordHtml = document.createTextNode(definition.definition)
+    wordHtml.className = 'definition'
     wordCell.appendChild(wordHtml)
 
     let scoreCell = document.createElement('td')
+    scoreCell.className = 'score-cell'
     row.appendChild(scoreCell)
 
     meterHtml = document.createElement('meter')
+    meterHtml.className = 'score-meter'
     meterHtml.max = 100
     meterHtml.min = 0
     meterHtml.value = definition.score
