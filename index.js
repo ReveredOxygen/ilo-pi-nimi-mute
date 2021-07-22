@@ -63,6 +63,9 @@ function placeHtml(entries, results, query) {
             let listItem = document.createElement('li')
             listItem.appendChild(html)
 
+            let line = document.createElement('hr')
+            listItem.appendChild(line)
+
             list.appendChild(listItem)
         }
     }
@@ -73,12 +76,107 @@ function placeHtml(entries, results, query) {
         let listItem = document.createElement('li')
         listItem.appendChild(html)
 
+        let line = document.createElement('hr')
+        listItem.appendChild(line)
+
         list.appendChild(listItem)
     }
 }
 
 function generateHtml(entry, match) {
     let div = document.createElement('div')
+
+    let longHtml = generateLongHtml(entry, match)
+    let summaryHtml = generateSummaryHtml(entry, match)
+
+    div.appendChild(summaryHtml)
+    div.appendChild(longHtml)
+
+    return div
+}
+
+function generateSummaryHtml(entry, match) {
+    let div = document.createElement('p')
+    div.onclick = toggleLongView
+    div.className = 'summary-entry'
+
+    let wordHtml = document.createElement('b')
+    wordHtml.textContent = entry.word
+    div.appendChild(wordHtml)
+
+    let tagsHtml = document.createElement('em')
+    tagsHtml.innerHTML = ' ' + formatTags(entry.tags)
+    div.appendChild(tagsHtml)
+
+    let seperator = document.createElement('span')
+    seperator.innerHTML = '&ensp;&mdash;&ensp;'
+    div.appendChild(seperator)
+
+    let definitonsHtml = document.createElement('span')
+    div.appendChild(definitonsHtml)
+
+    let definitionsList = []
+    for (const definition of entry.definitions) {
+        definitionsList.push(`${definition.definition}<sup>${frequencyToIndex(definition.score)}</sup>`)
+    }
+
+    if (match) {
+        let removed = []
+        for (i = 0; i < match.matches.length; i++) {
+            if (match.matches[i].key !== 'definitions.definition') {
+                break
+            }
+
+            index = match.matches[i].refIndex
+            removed.push(definitionsList.splice(index, 1))
+        }
+
+        definitionsList = [...removed, ...definitionsList]
+    }
+
+    definitonsHtml.innerHTML = definitionsList.join(',&nbsp; ')
+
+    return div
+}
+
+function toggleLongView() {
+    style = this.nextElementSibling.style
+
+    console.log(this.nextElementSibling)
+    console.log(style.display)
+    if (style.display === '') {
+        style.display = 'none'
+    }
+    else {
+        style.display = null
+    }
+}
+
+function formatTags(tags) {
+    let out = '('
+    for (let i = 0; i < tags.length; i++) {
+        out += tags[i]
+        if (i < tags.length - 1) {
+            out += ', '
+        }
+    }
+    out += ')'
+
+    return out
+}
+
+function frequencyToIndex(frequency) {
+    return frequency > 80 ? '5' :
+        frequency > 60 ? '4' :
+            frequency > 40 ? '3' :
+                frequency > 20 ? '2' :
+                    frequency > 10 ? '1' :
+                        '½'
+}
+
+function generateLongHtml(entry, match) {
+    let div = document.createElement('div')
+    div.style.display = 'none'
     div.className = 'entry'
 
     let wordHtml = document.createElement('h1')
@@ -86,17 +184,9 @@ function generateHtml(entry, match) {
     wordHtml.className = 'tp-word'
     div.appendChild(wordHtml)
 
-    let tagsStr = '('
-    for (let i = 0; i < entry.tags.length; i++) {
-        tagsStr += entry.tags[i]
-        if (i < entry.tags.length - 1) {
-            tagsStr += ', '
-        }
-    }
-    tagsStr += ')'
 
     let tagsHtml = document.createElement('div')
-    tagsHtml.textContent = tagsStr
+    tagsHtml.textContent = formatTags(entry.tags)
     tagsHtml.className = 'tags'
     div.appendChild(tagsHtml)
 

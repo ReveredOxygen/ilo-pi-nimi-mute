@@ -55,3 +55,6 @@ tr {
   float: right;
   width: 20em;
 }
+.summary-entry {
+    cursor: pointer;
+}
