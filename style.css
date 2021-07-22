@@ -28,9 +28,10 @@ body {
   font-size: 3.5em;
 }
 .tags {
+  margin-left: 0.25em
   margin-top: .8em;
   color: #a3a9d6;
-  font-size: 2.75em;
+  font-size: 0.5em;
 }
 table {
   width: 100%;
