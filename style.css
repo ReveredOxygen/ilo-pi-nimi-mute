@@ -1,0 +1,47 @@
+body {
+  background: #151a20;
+  color: #fff;
+}
+
+#searchbar-container {
+  margin: auto;
+  width: 80%;
+}
+#searchbar {
+  margin-top: 10%;
+  padding: .25em;
+  width: 100%;
+  border: 4px solid #080d13;
+  border-radius: 8px;
+  background: #0f131a;
+  color: #dde;
+  font-size: 2em;
+}
+
+#results {
+  list-style: none;
+}
+.tp-word {
+  float: left;
+  margin-top: 0px;
+  color: #aab0dd;
+  font-size: 3.5em;
+}
+.tags {
+  margin-top: .8em;
+  color: #a3a9d6;
+  font-size: 2.75em;
+}
+table {
+  width: 100%;
+}
+.definition-cell {
+  font-size: 2em;
+}
+.score-cell {
+  padding-right: 5em;
+}
+.score-meter {
+  float: right;
+  width: 20em;
+}
