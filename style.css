@@ -1,6 +1,7 @@
 body {
   background: #151a20;
   color: #fff;
+  max-width: 20cm;
 }
 
 #searchbar-container {
@@ -17,6 +18,11 @@ body {
   color: #dde;
   font-size: 2em;
 }
+@media screen and (max-width: 767px) {
+  #searchbar {
+    font-size: 16px !important;
+  }
+}
 
 #results {
   list-style: none;
@@ -28,13 +34,16 @@ body {
   font-size: 3.5em;
 }
 .tags {
-  margin-left: 0.25em
+  margin-left: 0.25em;
   margin-top: .8em;
   color: #a3a9d6;
-  font-size: 0.5em;
+  font-size: 1.75em;
 }
 table {
   width: 100%;
+}
+tr {
+  height: 3.5em;
 }
 .definition-cell {
   font-size: 2em;
