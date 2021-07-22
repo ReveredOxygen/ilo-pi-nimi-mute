@@ -27,6 +27,25 @@ def parse_jan_sonja(raw_data: str):
 
     return entries
 
+def transform_proper_names(raw_data: dict[str, str]):
+    for key in list(raw_data):
+        if key[0].isupper() or key == 'toki pona':
+            raw_data.pop(key)
+
+    output = {}
+    for key, value in raw_data.items():
+        output[key] = {
+            'definitions': [
+                {
+                    'definition': value,
+                    'score': 100
+                }
+            ],
+            'tags': ['nimi pi toki pona ala']
+        }
+
+    return output
+
 def transform_data():
     with open('sources/jan-sonja/nimi_pi_pu_ala.txt') as f:
         nimi_pi_pu_ala = parse_jan_sonja(f.read())
@@ -90,10 +109,15 @@ def transform_data():
         for v in nimi_mute.values():
             v['tags'] = ['nimi mute']
 
+    with open('sources/ilo-salana/proper_names.json') as f:
+        data = json.load(f)
+        proper_names = transform_proper_names(data)
+
     words_dict = nimi_pu
     words_dict.update(nimi_ku_suli)
     words_dict.update(nimi_pi_pu_ala)
     words_dict.update(nimi_mute)
+    words_dict.update(proper_names)
 
     words = []
     for word, definition in words_dict.items():
