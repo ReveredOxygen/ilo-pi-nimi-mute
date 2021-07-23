@@ -38,7 +38,7 @@ def transform_proper_names(raw_data: dict[str, str]):
             'definitions': [
                 {
                     'definition': value,
-                    'score': 100
+                    'score': None
                 }
             ],
             'tags': ['nimi pi toki pona ala']
@@ -52,7 +52,7 @@ def transform_data():
 
         nimi_pi_pu_ala['ku'] = {
                 'definitions': [
-                    {'definition': 'iteract with "Toki Pona Dictionary"', 'score': 100}
+                    {'definition': 'iteract with "Toki Pona Dictionary"', 'score': None}
                 ]
             }
 

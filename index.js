@@ -148,8 +148,6 @@ function toggleLongView() {
     style = this.nextElementSibling.style
     indicator = this.firstChild
 
-    console.log(this.nextElementSibling)
-    console.log(style.display)
     if (style.display === '') {
         style.display = 'none'
         indicator.innerHTML = '▾&ensp;'
@@ -174,12 +172,13 @@ function formatTags(tags) {
 }
 
 function frequencyToIndex(frequency) {
-    return frequency > 80 ? '5' :
-        frequency > 60 ? '4' :
-            frequency > 40 ? '3' :
-                frequency > 20 ? '2' :
-                    frequency > 10 ? '1' :
-                        '½'
+    return frequency == null ? 'n/a' :
+        frequency > 80 ? '5' :
+            frequency > 60 ? '4' :
+                frequency > 40 ? '3' :
+                    frequency > 20 ? '2' :
+                        frequency > 10 ? '1' :
+                            '½'
 }
 
 function generateLongHtml(entry, match) {
@@ -252,6 +251,12 @@ function pushDefinition(table, definition) {
     meterHtml.className = 'score-meter'
     meterHtml.max = 100
     meterHtml.min = 0
-    meterHtml.value = definition.score
+    if (definition.score == null) {
+        meterHtml.value = 100
+        meterHtml.low = 100
+    }
+    else {
+        meterHtml.value = definition.score
+    }
     scoreCell.appendChild(meterHtml)
 }
