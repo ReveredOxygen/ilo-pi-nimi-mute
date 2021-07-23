@@ -100,6 +100,11 @@ function generateSummaryHtml(entry, match) {
     div.onclick = toggleLongView
     div.className = 'summary-entry'
 
+    let expandIndicator = document.createElement('span')
+    expandIndicator.innerHTML = '▾&ensp;'
+    expandIndicator.className = 'expand-indicator'
+    div.appendChild(expandIndicator)
+
     let wordHtml = document.createElement('b')
     wordHtml.textContent = entry.word
     div.appendChild(wordHtml)
@@ -141,14 +146,17 @@ function generateSummaryHtml(entry, match) {
 
 function toggleLongView() {
     style = this.nextElementSibling.style
+    indicator = this.firstChild
 
     console.log(this.nextElementSibling)
     console.log(style.display)
     if (style.display === '') {
         style.display = 'none'
+        indicator.innerHTML = '▾&ensp;'
     }
     else {
         style.display = null
+        indicator.innerHTML = '▴&ensp;'
     }
 }
 
