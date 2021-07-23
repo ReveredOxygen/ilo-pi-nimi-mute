@@ -52,7 +52,7 @@ def transform_data():
 
         nimi_pi_pu_ala['ku'] = {
                 'definitions': [
-                    {'definition': 'iteract with "Toki Pona Dictionary"', 'score': None}
+                    {'definition': 'iteract with Toki Pona Dictionary', 'score': None}
                 ]
             }
 
