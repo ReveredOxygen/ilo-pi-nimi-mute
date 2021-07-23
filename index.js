@@ -113,12 +113,18 @@ function generateSummaryHtml(entry, match) {
     tagsHtml.innerHTML = ' ' + formatTags(entry.tags)
     div.appendChild(tagsHtml)
 
+    let definitionsContainer = document.createElement('span')
+    definitionsContainer.className = 'summary-definitions-container'
+    div.appendChild(definitionsContainer)
+
     let seperator = document.createElement('span')
     seperator.innerHTML = '&ensp;&mdash;&ensp;'
-    div.appendChild(seperator)
+    seperator.className = 'summary-seperator'
+    definitionsContainer.appendChild(seperator)
 
     let definitonsHtml = document.createElement('span')
-    div.appendChild(definitonsHtml)
+    definitonsHtml.className = 'summary-definitions'
+    definitionsContainer.appendChild(definitonsHtml)
 
     let definitionsList = []
     for (const definition of entry.definitions) {
@@ -151,10 +157,12 @@ function toggleLongView() {
     if (style.display === '') {
         style.display = 'none'
         indicator.innerHTML = '▾&ensp;'
+        this.classList.remove('summary-expanded')
     }
     else {
         style.display = null
         indicator.innerHTML = '▴&ensp;'
+        this.classList.add('summary-expanded')
     }
 }
 
