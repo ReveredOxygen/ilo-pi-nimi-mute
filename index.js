@@ -186,16 +186,36 @@ function generateLongHtml(entry, match) {
     div.style.display = 'none'
     div.className = 'entry'
 
+    /*
     let wordHtml = document.createElement('h1')
     wordHtml.textContent = entry.word
     wordHtml.className = 'tp-word'
     div.appendChild(wordHtml)
 
-
     let tagsHtml = document.createElement('div')
     tagsHtml.textContent = formatTags(entry.tags)
     tagsHtml.className = 'tags'
     div.appendChild(tagsHtml)
+    */
+
+    if (entry['nimi-ale-pona-definition'] != null) {
+        let nimiAlePonaDef = document.createElement('p')
+        nimiAlePonaDef.textContent = 'kon tan nimi ale pona li ni: ' + entry['nimi-ale-pona-definition']
+        nimiAlePonaDef.className = 'nimi-ale-pona-definition'
+        div.appendChild(nimiAlePonaDef)
+    }
+
+    if (entry.etymology != null) {
+        etymology = entry.etymology.etymology
+        let etymologyHtml = document.createElement('p')
+        etymologyHtml.textContent = 'nimi li ' +
+            (etymology != null ? 'tan ni ' : '') +
+            'tan ' +
+            entry.etymology.language +
+            (etymology != null ? ': ' + etymology : '')
+        etymologyHtml.className = 'etymology'
+        div.appendChild(etymologyHtml)
+    }
 
     div.appendChild(genDefinitionTable(entry, match))
 

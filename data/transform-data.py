@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
 import json
+import csv
 
 NIMI_KU_SULI = ['namako', 'kin', 'oko', 'kipisi', 'leko', 'monsuta', 'misikeke', 'tonsi', 'jasima', 'soko', 'meso', 'epiku', 'kokosila', 'lanpan', 'n', 'kijetesantakalu', 'ku']
 
@@ -41,10 +42,69 @@ def transform_proper_names(raw_data: dict[str, str]):
                     'score': None
                 }
             ],
-            'tags': ['nimi pi toki pona ala']
+            'tags': {'nimi pi toki pona ala'}
         }
 
     return output
+
+def add_nimi_ale_pona(words):
+    with open('sources/nimi-ale-pona.csv', newline='') as file:
+        reader = csv.reader(file)
+        next(reader) # Skip the header
+        for row in reader:
+            if row[0] == 'ale, ali':
+                row[0] = 'ale'
+                add_one_nimi_pi_nimi_ale_pona(words, row)
+                row[0] = 'ali'
+                add_one_nimi_pi_nimi_ale_pona(words, row)
+
+            add_one_nimi_pi_nimi_ale_pona(words, row)
+
+def add_one_nimi_pi_nimi_ale_pona(words, new_word):
+    existing = words.get(new_word[0])
+
+    categories = set()
+
+    if new_word[1] == 'pu':
+        categories.add('nimi pu')
+    else:
+        categories.add('nimi pi pu ala')
+        categories.add('nimi pi sin ala' if new_word[1] == 'pre-pu' else 'nimi sin')
+
+    if new_word[5] == 'word of Sonja':
+        categories.add('nimi pi jan Sonja')
+
+    if new_word[6] == 'nimi nanpa':
+        categories.add('nimi nanpa')
+
+    if existing is None:
+        words[new_word[0]] = {
+            'definitions': [
+                {'definition': new_word[2], 'score': None}
+            ],
+            'tags': set()
+        }
+        existing = words[new_word[0]]
+
+    existing['nimi-ale-pona-definition'] = new_word[2]
+    existing['tags'] |= categories
+
+    etymology = {}
+    etymology['language'] = new_word[3]
+    etymology['etymology'] = new_word[4] if new_word[4] != '' else None
+
+    if etymology['language'] == 'onomatopoeia':
+        etymology['language'] = 'kalama mu'
+    if etymology['language'] == 'unknown':
+        etymology['language'] = 'toki pi sona ala'
+    if etymology['language'] == 'multiple':
+        etymology['language'] = 'toki mute'
+    if etymology['language'] == 'multiple possibilities':
+        etymology['language'] = 'ken mute'
+    if etymology['language'] == 'a priori':
+        etymology['language'] = 'tan ona taso'
+
+    existing['etymology'] = etymology
 
 def transform_data():
     with open('sources/jan-sonja/nimi_pi_pu_ala.txt') as f:
@@ -57,13 +117,13 @@ def transform_data():
             }
 
         for v in nimi_pi_pu_ala.values():
-            v['tags'] = ['nimi pi pu ala']
+            v['tags'] = {'nimi pi pu ala'}
 
         nimi_ku_suli = {}
         for k in NIMI_KU_SULI:
             try:
                 v = nimi_pi_pu_ala.pop(k)
-                v['tags'] = ['nimi ku suli', 'nimi pi pu ala']
+                v['tags'] = {'nimi ku suli', 'nimi pi pu ala'}
                 nimi_ku_suli[k] = v
             except KeyError:
                 pass
@@ -72,12 +132,12 @@ def transform_data():
         nimi_pu = parse_jan_sonja(f.read())
 
         for v in nimi_pu.values():
-            v['tags'] = ['nimi pu']
+            v['tags'] = {'nimi pu'}
 
         for k in NIMI_KU_SULI:
             try:
                 v = nimi_pu.pop(k)
-                v['tags'] = ['nimi ku suli', 'nimi pu']
+                v['tags'] = {'nimi ku suli', 'nimi pu'}
                 nimi_ku_suli[k] = v
             except KeyError:
                 pass
@@ -107,7 +167,7 @@ def transform_data():
                 pass
 
         for v in nimi_mute.values():
-            v['tags'] = ['nimi mute']
+            v['tags'] = {'nimi mute'}
 
     with open('sources/ilo-salana/proper_names.json') as f:
         data = json.load(f)
@@ -119,15 +179,41 @@ def transform_data():
     words_dict.update(nimi_mute)
     words_dict.update(proper_names)
 
+    add_nimi_ale_pona(words_dict)
+
     words = []
     for word, definition in words_dict.items():
         definition['word'] = word
 
-        # Reorganize the order in the list. Not really necessary, but doesn't hurt much
         definition['definitions'] = definition.pop('definitions')
-        definition['tags'] = definition.pop('tags')
+        definition['tags'] = list(definition.pop('tags'))
 
         words.append(definition)
+
+    for word in words:
+        word['tags'].sort(key=lambda tag: {
+            'nimi mute': 0,
+            'nimi pi toki pona ala': 0,
+            'nimi ku suli': 10,
+            'nimi pu': 20,
+            'nimi pi pu ala': 20,
+            'nimi sin': 30,
+            'nimi pi sin ala': 30,
+            'nimi nanpa': 40,
+            'nimi pi jan Sonja': 50
+        }[tag])
+
+    words.sort(key=lambda entry: list(filter(lambda x: x is not None, map(lambda tag: {
+        'nimi pu': 10,
+        'nimi ku suli': 20,
+        'nimi pi sin ala': 30,
+        'nimi sin': 40,
+        'nimi pi pu ala': 50,
+        'nimi mute': 60,
+        'nimi pi toki pona ala': 70,
+        'nimi nanpa': None,
+        'nimi pi jan Sonja': None
+    }[tag], entry['tags']))))
 
     return words
 
