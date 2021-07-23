@@ -1,6 +1,14 @@
 window.onload = async function() {
     window.dictionary = await (await fetch('./data/dictionary.json')).json()
 
+    const params = new URLSearchParams(location.hash.substring(1))
+    if (params.has('alasa')) {
+        document.getElementById('searchbar').value = params.get('alasa')
+    }
+    if (params.has('nimi')) {
+        var word = params.get('nimi')
+    }
+
     window.fuseBilingual = new Fuse(dictionary, {
         keys: [
             {
@@ -29,11 +37,20 @@ window.onload = async function() {
         threshold: 0.1,
     })
 
-    onSearchUpdate()
+    onSearchUpdate(word)
 }
 
-function onSearchUpdate() {
+function onSearchUpdate(jumpToWord) {
     let query = document.getElementById('searchbar').value
+
+    params = new URLSearchParams(location.hash.substring(1))
+    if (query != '') {
+        params.set('alasa', query)
+    }
+    else {
+        params.delete('alasa')
+    }
+    location.hash = params.toString()
 
     if (query.startsWith('!i ') || query.startsWith('!e ')) {
         var fuse = fuseEnglish
@@ -49,7 +66,24 @@ function onSearchUpdate() {
 
     let results = fuse.search(query)
 
-    placeHtml(dictionary, results, query)
+    let placed = placeHtml(dictionary, results, query)
+
+    if (!jumpToWord) {
+        return
+    }
+
+    let index = placed.findIndex(x => x.word == jumpToWord)
+    if (index === -1) {
+        return
+    }
+
+    let list = document.getElementById('results')
+
+    let elemToMove = list.childNodes[index]
+    list.removeChild(elemToMove)
+    list.prepend(elemToMove)
+    elemToMove.classList.add('highlighted-result')
+    toggleLongView.bind(elemToMove.firstChild.firstChild)()
 }
 
 function placeHtml(entries, results, query) {
@@ -68,6 +102,8 @@ function placeHtml(entries, results, query) {
 
             list.appendChild(listItem)
         }
+
+        return entries
     }
 
     for (const result of results) {
@@ -81,6 +117,8 @@ function placeHtml(entries, results, query) {
 
         list.appendChild(listItem)
     }
+
+    return results.map(x => x.item)
 }
 
 function generateHtml(entry, match) {
