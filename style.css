@@ -1,7 +1,11 @@
 body {
   background: #151a20;
   color: #fff;
+  font-size: 16px;
   /* max-width: 20cm; */
+}
+p {
+  
 }
 
 a:link {
@@ -39,25 +43,40 @@ input, select, textarea {
 }
 
 #results {
+  padding: 40px;
   list-style: none;
 }
 .summary-entry {
-    cursor: pointer;
+  cursor: pointer;
+  font-size: 20px;
+}
+hr {
+  color: #484a5d;
 }
 
+.entry {
+  margin-left: 2em
+}
 table {
   width: 100%;
 }
 tr {
-  height: 3.5em;
+  height: 2em;
 }
 .definition-cell {
-  font-size: 2em;
+  font-size: 18px;
 }
 .score-cell {
-  padding-right: 5em;
+  padding-right: 1em;
 }
 .score-meter {
   float: right;
   width: 20em;
+}
+
+#credits {
+  margin: auto;
+  padding-bottom: 40px;
+  max-width: 80%;
+  text-align: center;
 }
