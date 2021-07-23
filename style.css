@@ -4,11 +4,25 @@ body {
   /* max-width: 20cm; */
 }
 
+a:link {
+  color: #b0b8ff;
+}
+a:visited {
+  color: #9090b7;
+}
+a:hover {
+  color: #ccf;
+}
+a:active {
+  color: #a0a4db;
+  text-decoration: none;
+} 
+
 #searchbar-container {
   margin: auto;
   width: 80%;
 }
-#searchbar {
+input, select, textarea {
   margin-top: 10%;
   padding: .25em;
   width: 100%;
@@ -16,29 +30,21 @@ body {
   border-radius: 8px;
   background: #0f131a;
   color: #dde;
-  font-size: 2em;
+  font-size: 16px;
 }
-@media screen and (max-width: 767px) {
+@media screen and not (max-width: 767px) {
   #searchbar {
-    font-size: 16px !important;
+    font-size: 2em;
   }
 }
 
 #results {
   list-style: none;
 }
-.tp-word {
-  float: left;
-  margin-top: 0px;
-  color: #aab0dd;
-  font-size: 3.5em;
+.summary-entry {
+    cursor: pointer;
 }
-.tags {
-  margin-left: 0.25em;
-  margin-top: .8em;
-  color: #a3a9d6;
-  font-size: 1.75em;
-}
+
 table {
   width: 100%;
 }
@@ -54,7 +60,4 @@ tr {
 .score-meter {
   float: right;
   width: 20em;
-}
-.summary-entry {
-    cursor: pointer;
 }
