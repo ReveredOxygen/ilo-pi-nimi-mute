@@ -1,4 +1,5 @@
 body {
+  margin: 0;
   background: #151a20;
   color: #fff;
   font-size: 16px;
@@ -46,12 +47,20 @@ input, select, textarea {
   padding: 40px;
   list-style: none;
 }
+li {
+  margin: 20px 0;
+}
 .summary-entry {
+  margin: 0;
+  float: left;
   cursor: pointer;
   font-size: 20px;
 }
 .summary-expanded .summary-definitions-container {
   display: none;
+}
+.copy-link {
+  cursor: pointer;
 }
 hr {
   color: #484a5d;
@@ -82,7 +91,4 @@ tr {
   padding-bottom: 40px;
   max-width: 80%;
   text-align: center;
-}
-.copy-link {
-    cursor: pointer;
 }
