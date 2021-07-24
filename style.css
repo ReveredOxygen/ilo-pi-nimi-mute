@@ -44,10 +44,11 @@ input, select, textarea {
 }
 
 #results {
-  padding: 40px;
+  margin: 3em 0;
+  padding: 0 40px;
   list-style: none;
 }
-li {
+.entry {
   margin: 20px 0;
 }
 .summary-entry {
@@ -56,10 +57,15 @@ li {
   cursor: pointer;
   font-size: 20px;
 }
+.summary-expanded b {
+  font-size: 30px;
+  font-family: sans-serif;
+}
 .summary-expanded .summary-definitions-container {
   display: none;
 }
 .copy-link {
+  margin-left: 5px;
   cursor: pointer;
 }
 hr {
@@ -87,8 +93,7 @@ tr {
 }
 
 #credits {
-  margin: auto;
-  padding-bottom: 40px;
+  margin: 40px auto;
   max-width: 80%;
   text-align: center;
 }
