@@ -123,6 +123,7 @@ function placeHtml(entries, results, query) {
 
 function generateHtml(entry, match) {
     let div = document.createElement('div')
+    div.className = 'entry'
 
     let longHtml = generateLongHtml(entry, match)
     let summaryHtml = generateSummaryHtml(entry, match)
@@ -246,7 +247,7 @@ function frequencyToIndex(frequency) {
 function generateLongHtml(entry, match) {
     let div = document.createElement('div')
     div.style.display = 'none'
-    div.className = 'entry'
+    div.className = 'details'
 
     /*
     let wordHtml = document.createElement('h1')
