@@ -205,7 +205,7 @@ function generateSummaryHtml(entry, match) {
 }
 
 function toggleLongView() {
-    style = this.nextElementSibling.style
+    style = this.parentElement.nextElementSibling.style
     indicator = this.firstChild
 
     if (style.display === '') {
