@@ -134,9 +134,13 @@ function generateHtml(entry, match) {
 }
 
 function generateSummaryHtml(entry, match) {
+    let container = document.createElement('div')
+    container.className = 'summary-container'
+
     let div = document.createElement('p')
     div.onclick = toggleLongView
     div.className = 'summary-entry'
+    container.appendChild(div)
 
     let expandIndicator = document.createElement('span')
     expandIndicator.innerHTML = '▾&ensp;'
@@ -185,7 +189,19 @@ function generateSummaryHtml(entry, match) {
 
     definitonsHtml.innerHTML = definitionsList.join(',&nbsp; ')
 
-    return div
+    linkHtml = document.createElement('img')
+    linkHtml.className = 'copy-link'
+    linkHtml.src = 'link.svg'
+    linkHtml.width = 32
+    linkHtml.onclick = () => {
+        params = new URLSearchParams(location.hash.substring(1))
+        params.set('nimi', entry.word)
+        url = location.origin + location.pathname + '#' + params.toString()
+        navigator.clipboard.writeText(url).then(() => alert('Copied link to clipboard: ' + url))
+    }
+    container.appendChild(linkHtml)
+
+    return container
 }
 
 function toggleLongView() {
