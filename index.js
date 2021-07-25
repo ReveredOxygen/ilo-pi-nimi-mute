@@ -286,7 +286,11 @@ function generateLongHtml(entry, match) {
 }
 
 function genDefinitionTable(entry, match) {
+    let tableContainer = document.createElement('div')
+    tableContainer.className = 'table-container'
+
     let table = document.createElement('table')
+    tableContainer.appendChild(table)
     let body = document.createElement('tbody')
     table.appendChild(body)
 
@@ -311,7 +315,7 @@ function genDefinitionTable(entry, match) {
         }
     }
 
-    return table
+    return tableContainer
 }
 
 function pushDefinition(table, definition) {
