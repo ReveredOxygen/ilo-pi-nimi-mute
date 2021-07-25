@@ -70,14 +70,24 @@ input, select, textarea {
 .summary-definitions*/
 .copy-link {
   margin-left: 5px;
+  padding: 4px;
+  width: 24px;
+  border: 4px outset #292e34;
+  border-radius: 15px;
+  background: #292e34;
   cursor: pointer;
+}
+.copy-link:active {
+  padding: 6px;
+  border: 2px inset #1f242a;
+  background: #1f242a;
 }
 hr {
   color: #484a5d;
 }
 
 .details {
-  margin-left: 2em
+  margin: 0 2em;
 }
 /*.nimi-ale-pona-definition
 .etymology*/
@@ -89,7 +99,7 @@ tr {
   height: 2em;
   border: 1px solid #eee3;
 }
-tr:nth-child(even) {
+tr:nth-child(odd) {
   background: #6661
 }
 .definition-cell {
