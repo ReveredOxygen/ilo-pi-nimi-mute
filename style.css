@@ -51,12 +51,14 @@ input, select, textarea {
 .entry {
   margin: 20px 0;
 }
+/*.summary-container*/
 .summary-entry {
   margin: 0;
   float: left;
   cursor: pointer;
   font-size: 20px;
 }
+/*.expand-indicator*/
 .summary-expanded b {
   font-size: 30px;
   font-family: sans-serif;
@@ -64,6 +66,8 @@ input, select, textarea {
 .summary-expanded .summary-definitions-container {
   display: none;
 }
+/*.summary-seperator
+.summary-definitions*/
 .copy-link {
   margin-left: 5px;
   cursor: pointer;
@@ -75,13 +79,21 @@ hr {
 .details {
   margin-left: 2em
 }
+/*.nimi-ale-pona-definition
+.etymology*/
 table {
+  border-collapse: collapse;
   width: 100%;
 }
 tr {
   height: 2em;
+  border: 1px solid #eee3;
+}
+tr:nth-child(even) {
+  background: #6661
 }
 .definition-cell {
+  padding-left: 8px;
   font-size: 18px;
 }
 .score-cell {
