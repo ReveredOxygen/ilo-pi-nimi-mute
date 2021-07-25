@@ -17,7 +17,7 @@ a:hover {
 a:active {
   color: #a0a4db;
   text-decoration: none;
-} 
+}
 
 #header {
   padding: 2.75em 0;
@@ -51,7 +51,11 @@ input, select, textarea {
 .entry {
   margin: 20px 0;
 }
-/*.summary-container*/
+.summary-container {
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+}
 .summary-entry {
   margin: 0;
   float: left;
@@ -72,6 +76,7 @@ input, select, textarea {
   margin-left: 5px;
   padding: 4px;
   width: 24px;
+  height: 24px;
   border: 4px outset #292e34;
   border-radius: 15px;
   background: #292e34;
@@ -91,13 +96,18 @@ hr {
 }
 /*.nimi-ale-pona-definition
 .etymology*/
+.table-container {
+  border: 1px solid #515550;
+  border-radius: 3px;
+  overflow: hidden;
+}
 table {
   border-collapse: collapse;
   width: 100%;
 }
 tr {
   height: 2em;
-  border: 1px solid #eee3;
+  border: 1px solid #33373c;
 }
 tr:nth-child(odd) {
   background: #6661
