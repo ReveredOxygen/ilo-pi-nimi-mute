@@ -83,7 +83,7 @@ function onSearchUpdate(jumpToWord) {
     list.removeChild(elemToMove)
     list.prepend(elemToMove)
     elemToMove.classList.add('highlighted-result')
-    toggleLongView.bind(elemToMove.firstChild.firstChild)()
+    toggleLongView.bind(elemToMove.firstChild.firstChild.firstChild)()
 }
 
 function placeHtml(entries, results, query) {
