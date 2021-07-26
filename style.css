@@ -35,11 +35,11 @@ input, select, textarea {
   border-radius: 8px;
   background: #11151c;
   color: #dde;
-  font-size: 16px;
+  font-size: 24px;
 }
-@media screen and not (max-width: 767px) {
+@media screen and (min-width: 767px) {
   #searchbar {
-    font-size: 2em;
+    font-size: 18px;
   }
 }
 
