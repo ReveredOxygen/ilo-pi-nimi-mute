@@ -3,7 +3,6 @@ body {
   background: #151a20;
   color: #fff;
   font-size: 16px;
-  /* max-width: 20cm; */
 }
 a:link {
   color: #b0b8ff;
@@ -20,15 +19,26 @@ a:active {
 }
 
 #header {
-  padding: 2.75em 0;
   border-bottom: 4px solid #0002;
+  width: 100%;
+  height: 110px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   background: #0f131a;
 }
+#header > div {
+  margin: 0 3px;
+}
+@media screen and (min-width: 767px) {
+  #header {
+    height: 152px;
+  }
+}
 #searchbar-container {
-  margin: auto;
   width: 80%;
 }
-input, select, textarea {
+#searchbar {
   padding: .25em;
   width: 100%;
   border: 4px inset #080d13;
@@ -37,16 +47,17 @@ input, select, textarea {
   color: #dde;
   font-size: 24px;
 }
-@media screen and (min-width: 767px) {
-  #searchbar {
-    font-size: 18px;
-  }
-}
 
 #results {
-  margin: 3em 0;
-  padding: 0 40px;
+  margin: 1em 0;
+  padding: 0 15px;
   list-style: none;
+}
+@media screen and (min-width: 767px) {
+  #results {
+    margin: 3em 0;
+    padding: 0 40px;
+  }
 }
 .entry {
   margin: 20px 0;
@@ -60,12 +71,22 @@ input, select, textarea {
   margin: 0;
   float: left;
   cursor: pointer;
-  font-size: 20px;
+  font-size: 16px;
+}
+@media screen and (min-width: 767px) {
+  .summary-entry {
+    font-size: 20px;
+  }
 }
 /*.expand-indicator*/
 .summary-expanded b {
-  font-size: 30px;
+  font-size: 18px;
   font-family: sans-serif;
+}
+@media screen and (min-width: 767px) {
+  .summary-expanded b {
+    font-size: 30px;
+  }
 }
 .summary-expanded .summary-definitions-container {
   display: none;
@@ -75,8 +96,8 @@ input, select, textarea {
 .copy-link {
   margin-left: 5px;
   padding: 4px;
-  width: 24px;
-  height: 24px;
+  width: 20px;
+  height: 20px;
   border: 4px outset #292e34;
   border-radius: 15px;
   background: #292e34;
@@ -87,12 +108,23 @@ input, select, textarea {
   border: 2px inset #1f242a;
   background: #1f242a;
 }
+@media screen and (min-width: 767px) {
+  .copy-link {
+    width: 24px;
+    height: 24px;
+  }
+}
 hr {
   color: #484a5d;
 }
 
 .details {
-  margin: 0 2em;
+  margin: 0;
+}
+@media screen and (min-width: 767px) {
+  .details {
+    margin: 0 2em;
+  }
 }
 /*.nimi-ale-pona-definition
 .etymology*/
@@ -121,7 +153,12 @@ tr:nth-child(odd) {
 }
 .score-meter {
   float: right;
-  width: 20em;
+  width: 6em;
+}
+@media screen and (min-width: 767px) {
+  .score-meter {
+    width: 20em;
+  }
 }
 
 #credits {
