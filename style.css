@@ -145,8 +145,13 @@ tr:nth-child(odd) {
   background: #6661
 }
 .definition-cell {
-  padding-left: 8px;
-  font-size: 18px;
+  padding: 8px;
+  font-size: 15px
+}
+@media screen and (min-width: 767px) {
+  .definition-cell {
+    font-size: 18px;
+  }
 }
 .score-cell {
   padding-right: 1em;
